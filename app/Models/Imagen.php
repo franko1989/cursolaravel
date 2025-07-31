@@ -11,4 +11,11 @@ class Imagen extends Model
     protected $fillable = ['nombre',
                            'pelicula_id']; //indicar los campos gestionados
     public $timestamps = true; //indicar si se gestionan los campos created_at y updated_at
+
+    //una imagen pertenecea a una pelicula
+    public function pelicula(){
+        return $this->belongsTo(Pelicula::class);
+    }
 }
+
+

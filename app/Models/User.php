@@ -46,4 +46,17 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+    /*
+    relacion de un usuario con peliculas
+    */
+    public function peliculas()
+        {
+            //Relacion de 1 a N con Pelicula
+            return $this->hasMany(
+                Pelicula::class,      //nombre de la clases a la cual se relaciona
+                'user_id',            //Nombre dl Fk dentro del campo Pelicula
+                'id');                //Nombre del campo PK de la clase actual "User"
+
+        }
+
 }
