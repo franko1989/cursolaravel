@@ -41,6 +41,13 @@
             href="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.11.0/styles/overlayscrollbars.min.css"
             crossorigin="anonymous"
         />
+        <!--begin::Font-awesome-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        <!--end::Font-awesome-->
+
+
+
+
         <!--end::Third Party Plugin(OverlayScrollbars)-->
         <!--begin::Third Party Plugin(Bootstrap Icons)-->
         <link
@@ -52,6 +59,7 @@
         <!--begin::Required Plugin(AdminLTE)-->
         <link rel="stylesheet" href="{{ asset('admin/dist/css/adminlte.min.css') }}" />
         <!--end::Required Plugin(AdminLTE)-->
+        @yield('styles')
     </head>
     <!--end::Head-->
     <!--begin::Body-->
@@ -68,6 +76,7 @@
             <main class="app-main">
                 <!--begin::App Content Header-->
                 <div class="container-fluid">
+                    @include('admin.layouts.messages')
                     <div class="row">
                         <div class="col-sm-6">
                             <h3 class="app-content-title">@yield('title','Titulo')</h3>
@@ -197,6 +206,7 @@
         </script>
         <!--end::Bootstrap Toasts-->
         <!--end::Script-->
+        @yield('scripts')
     </body>
     <!--end::Body-->
 </html>

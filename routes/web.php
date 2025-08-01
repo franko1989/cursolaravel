@@ -3,6 +3,7 @@
 use App\Http\Controllers\admin\HomeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PruebaController;
+use App\Http\Controllers\admin\UserController;
 
 //crear una ruta para http://127.0.0.1:8000/
 Route::get('/', function () {
@@ -94,5 +95,6 @@ Route::get('prueba/componentes',[PruebaController::class,'componentesBlade'])->n
 //http://127.0.1:8000/admin/home
 Route::prefix('admin')->group(function () {
     Route::get('/home', [HomeController::class, 'index'])->name('admin.home');
+    Route::resource('user', UserController::class);
 });
 
