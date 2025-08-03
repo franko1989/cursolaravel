@@ -7,7 +7,7 @@
         <div class="card-header">
             <div class="card-title">Completar el formulario para añadir un nuevo usuario</div>
         </div>
-        <form action="{{ route('user.store') }}" method="POST">
+        <form action="{{ route('admin.user.store') }}" method="POST">
             @csrf <!--añade capa de seguridad y es obligatorio-->
             <div class="card-body">
                 <div class="mb-3">
@@ -49,7 +49,7 @@
                 <button type="submit" class="btn btn-primary">
                     Guardar
                 </button>
-                <a href="{{ route('user.index') }}" class="btn float-end">
+                <a href="{{ route('admin.user.index') }}" class="btn float-end">
                     <i class="fa fa-times" aria-hidden="true"></i> Cancelar
                 </a>
             </div>

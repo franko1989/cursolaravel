@@ -39,7 +39,7 @@ class UserController extends Controller
         $user->save();
         //return 'Usuario Registrado';
         return redirect()
-               ->route ('user.index')
+               ->route ('admin.user.index')
                ->with('success','usuario '.$user->name.' creado correctamente');
     }
 
@@ -75,7 +75,7 @@ class UserController extends Controller
         $user->role=$request->role;
         $user->save();
         return redirect()
-               ->route ('user.index')
+               ->route ('admin.user.index')
                ->with('success','usuario '.$user->name.' editado correctamente');
     }
 
@@ -88,7 +88,8 @@ class UserController extends Controller
         $user= User::find($id);
         $user->delete();
         return redirect()
-               ->route ('user.index')
+               ->route ('admin.user.index')
                ->with('success','usuario '.$user->name.' eliminado correctamente');
     }
+
 }

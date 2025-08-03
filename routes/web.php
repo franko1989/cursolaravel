@@ -1,14 +1,34 @@
 <?php
 
+use App\Http\Controllers\admin\GeneroController;
 use App\Http\Controllers\admin\HomeController;
+use App\Http\Controllers\Admin\PeliculaController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PruebaController;
 use App\Http\Controllers\admin\UserController;
+use App\Http\Controllers\ProfileController;
+use App\Models\Imagen;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
+use App\Http\Controllers\admin\ImagenController;
+use App\Http\Controllers\Admin\PeliculaDirectorController;
 
 //crear una ruta para http://127.0.0.1:8000/
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
 
 
 
@@ -93,8 +113,42 @@ Route::get('prueba/persona',[PruebaController::class,'datosPersona'])->name('pru
 Route::get('prueba/componentes',[PruebaController::class,'componentesBlade'])->name('prueba.componentes');
 
 //http://127.0.1:8000/admin/home
-Route::prefix('admin')->group(function () {
-    Route::get('/home', [HomeController::class, 'index'])->name('admin.home');
-    Route::resource('user', UserController::class);
+
+
+Route::get('/principal', function () {
+    $user = Auth::user();
+    return view('principal', compact('user'));
+})->middleware('auth')->name('principal');
+
+
+Route::get('/dev-login', function () {
+    $users = User::all();
+    return view('auth.dev-login', compact('users'));
 });
 
+Route::post('/dev-login', function (Request $request) {
+    Auth::loginUsingId($request->user_id);
+    return redirect()->route('principal');
+})->name('dev.login');
+require __DIR__.'/auth.php';
+
+Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
+    Route::resource('user', UserController::class);
+    Route::resource('genero', GeneroController::class);
+    Route::resource('pelicula', PeliculaController::class);
+});
+Route::prefix('admin')->name('admin.')->group(function() {
+    // Otras rutas...
+
+    Route::get('imagenes/create', [ImagenController::class, 'create'])->name('imagen.create');
+    Route::post('imagenes', [ImagenController::class, 'store'])->name('imagen.store');
+});
+
+Route::get('imagenes-por-pelicula', [App\Http\Controllers\admin\ImagenController::class, 'todas'])->name('admin.imagenes.todas');
+
+Route::resource('director', App\Http\Controllers\Admin\DirectorController::class)->names('admin.director');
+
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::resource('pelicula_director', PeliculaDirectorController::class);
+});

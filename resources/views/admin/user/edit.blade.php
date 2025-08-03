@@ -7,7 +7,7 @@
         <div class="card-header">
             <div class="card-title">Completar el formulario para editar usuario</div>
         </div>
-        <form action="{{ route('user.update',$user->id) }}" method="POST">
+        <form action="{{ route('admin.user.update',$user->id) }}" method="POST">
             @csrf <!--añade capa de seguridad y es obligatorio-->
             @method('PUT')
             <div class="card-body">
@@ -44,7 +44,7 @@
                 <button type="submit" class="btn btn-primary">
                     Guardar
                 </button>
-                <a href="{{ route('user.index') }}" class="btn float-end">
+                <a href="{{ route('admin.user.index') }}" class="btn float-end">
                     <i class="fa fa-times" aria-hidden="true"></i> Cancelar
                 </a>
             </div>

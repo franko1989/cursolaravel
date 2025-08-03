@@ -13,12 +13,14 @@ class Director extends Model
 
 
     // un director puede tener muchas peliculas
-    public function peliculas(){
-        return $this->belongsToMany(Pelicula::class,         //Modelo relacionado
-                                    'pelicula_director',     //tabla pivote
-                                    'pelicula_id',           //FK del modelo actual(Director)
-                                    'director_id'            //FK del modelo relacionado(Pelicula)
+    public function peliculas()
+    {
+        return $this->belongsToMany(
+            Pelicula::class,         //Modelo relacionado
+            'pelicula_director',
+            'director_id',     //tabla pivote
+            'pelicula_id',           //FK del modelo actual(Director)
+            //FK del modelo relacionado(Pelicula)
         )->withTimestamps();                                 //gestion automatica de created_at y updated_at
     }
-
 }

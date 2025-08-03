@@ -15,7 +15,7 @@
         <div class="card-header">
             <div class=" d-flex justify-content-between align-items-center">
                 <div class="card-title">Listado de usuarios</div>
-                <a href="{{ route('user.create') }}" class="btn btn-primary">Nuevo usuario</a>
+                <a href="{{ route('admin.user.create') }}" class="btn btn-primary">Nuevo usuario</a>
             </div>
         </div>
 
@@ -44,10 +44,10 @@
                                 @endif
                             </td>
                             <td>
-                                <a href="{{ route('user.edit', $user->id) }}" class="btn btn-sm btn-primary" title="Editar">
+                                <a href="{{ route('admin.user.edit', $user->id) }}" class="btn btn-sm btn-primary" title="Editar">
                                     Editar
                                 </a>
-                                <form action="{{ route('user.destroy', $user->id) }}" method="POST"
+                                <form action="{{ route('admin.user.destroy', $user->id) }}" method="POST"
                                     style="display:inline;">
                                     @csrf
                                     @method('DELETE')
